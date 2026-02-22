@@ -19,15 +19,21 @@ class _ProgressCardState extends State<ProgressCard>
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: controller,
       builder: (context, _) {
         return Container(
-          height: 220,
+          height: 180,
           width: double.infinity,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(36),
+            borderRadius: BorderRadius.circular(32),
             gradient: LinearGradient(
               colors: [
                 Color(0xFF8ED081),
@@ -38,68 +44,60 @@ class _ProgressCardState extends State<ProgressCard>
             ),
             boxShadow: [
               BoxShadow(
-                color: Color(0xFF6CC76A).withOpacity(0.45),
-                blurRadius: 28,
-                offset: Offset(0, 12),
-              ),
-              BoxShadow(
-                color: Colors.black.withOpacity(0.4),
-                blurRadius: 18,
-                offset: Offset(0, 8),
+                color: Color(0xFF6CC76A).withOpacity(0.35),
+                blurRadius: 20,
+                offset: Offset(0, 10),
               ),
             ],
           ),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    SizedBox(
-                      height: 120,
-                      width: 120,
-                      child: CircularProgressIndicator(
-                        value: controller.value * 0,
-                        strokeWidth: 10,
-                        backgroundColor: Colors.white.withOpacity(0.35),
-                        valueColor:
-                            AlwaysStoppedAnimation<Color>(Colors.white),
-                      ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  SizedBox(
+                    height: 100,
+                    width: 100,
+                    child: CircularProgressIndicator(
+                      value: controller.value * 0,
+                      strokeWidth: 8,
+                      backgroundColor: Colors.white.withOpacity(0.35),
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                     ),
-                    Text(
-                      '0%',
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontSize: 28,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black87,
-                      ),
+                  ),
+                  Text(
+                    '0%',
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 26,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black87,
                     ),
-                  ],
-                ),
-                SizedBox(height: 14),
-                Text(
-                  '0 lessons completed',
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black87,
                   ),
+                ],
+              ),
+              SizedBox(height: 12),
+              Text(
+                '0 lessons completed',
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
                 ),
-                SizedBox(height: 6),
-                Text(
-                  'Every journey starts with one step',
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontSize: 13,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black87.withOpacity(0.8),
-                  ),
+              ),
+              SizedBox(height: 4),
+              Text(
+                'Every journey starts with one step',
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black87.withOpacity(0.8),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         );
       },
