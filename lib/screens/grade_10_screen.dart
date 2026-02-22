@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'subject_screen.dart';
 
-class Grade9Screen extends StatelessWidget {
+class Grade10Screen extends StatelessWidget {
   final List<Map<String, dynamic>> subjects = [
     {'name': 'Math', 'icon': Iconsax.math},
     {'name': 'English', 'icon': Iconsax.book},
@@ -25,7 +25,7 @@ class Grade9Screen extends StatelessWidget {
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: Text(
-            'Grade 9',
+            'Grade 10',
             style: TextStyle(
               fontFamily: 'Poppins',
               fontSize: 22,
@@ -64,7 +64,7 @@ class Grade9Screen extends StatelessWidget {
                           MaterialPageRoute(
                             builder: (_) => SubjectScreen(
                               subjectName: subject['name'],
-                              grade: 9,
+                              grade: 10,
                             ),
                           ),
                         );

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'grade_9_screen.dart';
+import 'grade_10_screen.dart';
+import 'grade_11_screen.dart';
+import 'grade_12_screen.dart';
 import '../widgets/progress_card.dart';
 import '../widgets/grade_selector.dart';
 
@@ -9,7 +12,16 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Color(0xFF121212),
+        gradient: LinearGradient(
+          colors: [
+            Color(0xFF0A1A2F),
+            Color(0xFF0F2B46),
+            Color(0xFF1B3B5A),
+            Color(0xFF6AB8F7),
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -23,7 +35,7 @@ class HomeScreen extends StatelessWidget {
                   width: double.infinity,
                   padding: EdgeInsets.symmetric(horizontal: 18, vertical: 18),
                   decoration: BoxDecoration(
-                    color: Color(0xFF1E1E1E),
+                    color: Color(0xFF1E1E1E).withOpacity(0.85),
                     borderRadius: BorderRadius.circular(24),
                   ),
                   child: Row(
@@ -60,15 +72,8 @@ class HomeScreen extends StatelessWidget {
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                         decoration: BoxDecoration(
+                          color: Color(0xFF9FD9FF),
                           borderRadius: BorderRadius.circular(20),
-                          gradient: LinearGradient(
-                            colors: [
-                              Color(0xFF8ED081),
-                              Color(0xFF6CC76A),
-                            ],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
                         ),
                         child: Row(
                           children: [
@@ -93,14 +98,16 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                 ),
+
                 SizedBox(height: 28),
                 ProgressCard(),
                 SizedBox(height: 32),
+
                 Container(
                   width: double.infinity,
                   padding: EdgeInsets.symmetric(horizontal: 18, vertical: 18),
                   decoration: BoxDecoration(
-                    color: Color(0xFF1E1E1E),
+                    color: Color(0xFF1E1E1E).withOpacity(0.85),
                     borderRadius: BorderRadius.circular(24),
                   ),
                   child: Column(
@@ -119,16 +126,184 @@ class HomeScreen extends StatelessWidget {
                       GradeSelector(
                         onGradeSelected: (grade) {
                           if (grade == 9) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (_) => Grade9Screen()),
-                            );
+                            Navigator.push(context, MaterialPageRoute(builder: (_) => Grade9Screen()));
+                          } else if (grade == 10) {
+                            Navigator.push(context, MaterialPageRoute(builder: (_) => Grade10Screen()));
+                          } else if (grade == 11) {
+                            Navigator.push(context, MaterialPageRoute(builder: (_) => Grade11Screen()));
+                          } else if (grade == 12) {
+                            Navigator.push(context, MaterialPageRoute(builder: (_) => Grade12Screen()));
                           }
                         },
                       ),
                     ],
                   ),
                 ),
+
+                SizedBox(height: 26),
+
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(18),
+                  decoration: BoxDecoration(
+                    color: Color(0xFF1E1E1E).withOpacity(0.85),
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              height: 110,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(24),
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Color(0xFF9FD9FF),
+                                    Color(0xFF6AB8F7),
+                                  ],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0xFF6AB8F7).withOpacity(0.45),
+                                    blurRadius: 26,
+                                    offset: Offset(0, 10),
+                                  ),
+                                ],
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'Achievements',
+                                  style: TextStyle(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 16),
+                          Expanded(
+                            child: Container(
+                              height: 110,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(24),
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Color(0xFF9FD9FF),
+                                    Color(0xFF6AB8F7),
+                                  ],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0xFF6AB8F7).withOpacity(0.45),
+                                    blurRadius: 26,
+                                    offset: Offset(0, 10),
+                                  ),
+                                ],
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'Study Tips',
+                                  style: TextStyle(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      SizedBox(height: 16),
+
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              height: 110,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(24),
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Color(0xFF9FD9FF),
+                                    Color(0xFF6AB8F7),
+                                  ],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0xFF6AB8F7).withOpacity(0.45),
+                                    blurRadius: 26,
+                                    offset: Offset(0, 10),
+                                  ),
+                                ],
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'Recent Activity',
+                                  style: TextStyle(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 16),
+                          Expanded(
+                            child: Container(
+                              height: 110,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(24),
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Color(0xFF9FD9FF),
+                                    Color(0xFF6AB8F7),
+                                  ],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0xFF6AB8F7).withOpacity(0.45),
+                                    blurRadius: 26,
+                                    offset: Offset(0, 10),
+                                  ),
+                                ],
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'Quick Quiz',
+                                  style: TextStyle(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+
                 SizedBox(height: 32),
               ],
             ),

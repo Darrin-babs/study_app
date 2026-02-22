@@ -44,8 +44,8 @@ class _GradeSelectorState extends State<GradeSelector> {
                   gradient: isSelected
                       ? LinearGradient(
                           colors: [
-                            Color(0xFF8ED081),
-                            Color(0xFF6CC76A),
+                            Color(0xFF9FD9FF),
+                            Color(0xFF6AB8F7),
                           ],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,

@@ -22,15 +22,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               shape: BoxShape.circle,
               gradient: LinearGradient(
                 colors: [
-                  Color(0xFF8ED081),
-                  Color(0xFF6CC76A),
+                  Color(0xFF9FD9FF),
+                  Color(0xFF6AB8F7),
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Color(0xFF6CC76A).withOpacity(0.35),
+                  color: Color(0xFF6AB8F7).withOpacity(0.35),
                   blurRadius: 22,
                   spreadRadius: 4,
                   offset: Offset(0, 0),
