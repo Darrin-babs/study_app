@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../services/storage_service.dart';
 
 class ProgressCard extends StatefulWidget {
   @override
@@ -9,6 +10,10 @@ class _ProgressCardState extends State<ProgressCard>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
 
+  int level = 1;
+  int xp = 0;
+  int xpNeeded = 250;
+
   @override
   void initState() {
     super.initState();
@@ -16,6 +21,17 @@ class _ProgressCardState extends State<ProgressCard>
       vsync: this,
       duration: Duration(milliseconds: 900),
     )..forward();
+
+    _loadProgress();
+  }
+
+  Future<void> _loadProgress() async {
+    await StorageService.instance.init();
+    setState(() {
+      level = StorageService.instance.level;
+      xp = StorageService.instance.xp;
+      xpNeeded = StorageService.instance.xpForLevel(level);
+    });
   }
 
   @override
@@ -26,6 +42,9 @@ class _ProgressCardState extends State<ProgressCard>
 
   @override
   Widget build(BuildContext context) {
+    double progress = xp / xpNeeded;
+    if (progress > 1) progress = 1;
+
     return AnimatedBuilder(
       animation: controller,
       builder: (context, _) {
@@ -53,33 +72,38 @@ class _ProgressCardState extends State<ProgressCard>
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  SizedBox(
-                    height: 100,
-                    width: 100,
-                    child: CircularProgressIndicator(
-                      value: controller.value * 0,
-                      strokeWidth: 8,
-                      backgroundColor: Colors.white.withOpacity(0.35),
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                    ),
-                  ),
-                  Text(
-                    '0%',
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontSize: 26,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 12),
+              // LEVEL TEXT
               Text(
-                '0 lessons completed',
+                'Level $level',
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 26,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                ),
+              ),
+
+              SizedBox(height: 12),
+
+              // XP BAR
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 28),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: LinearProgressIndicator(
+                    value: progress * controller.value,
+                    minHeight: 12,
+                    backgroundColor: Colors.white.withOpacity(0.35),
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  ),
+                ),
+              ),
+
+              SizedBox(height: 12),
+
+              // XP TEXT
+              Text(
+                '$xp / $xpNeeded XP',
                 style: TextStyle(
                   fontFamily: 'Poppins',
                   fontSize: 15,
@@ -87,9 +111,12 @@ class _ProgressCardState extends State<ProgressCard>
                   color: Colors.white,
                 ),
               ),
+
               SizedBox(height: 4),
+
+              // MOTIVATION
               Text(
-                'Every journey starts with one step',
+                'Keep pushing to level up',
                 style: TextStyle(
                   fontFamily: 'Poppins',
                   fontSize: 12,

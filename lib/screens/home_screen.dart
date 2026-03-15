@@ -11,7 +11,19 @@ import 'study_tips_screen.dart';
 import 'recent_activity_screen.dart';
 import 'quick_quiz_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,6 +47,7 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+
                 Container(
                   width: double.infinity,
                   padding: EdgeInsets.symmetric(horizontal: 18, vertical: 18),
@@ -155,6 +168,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
+
                       Row(
                         children: [
                           Expanded(
@@ -336,6 +350,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ],
                       ),
+
                     ],
                   ),
                 ),

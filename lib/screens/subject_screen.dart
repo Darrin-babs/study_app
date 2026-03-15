@@ -5,6 +5,8 @@ import 'grade_9_questions.dart';
 import 'grade_10_questions.dart';
 import 'grade11_questions.dart';
 import 'grade_12_questions.dart';
+import '../services/storage_service.dart';
+import '../widgets/xp_toast.dart';
 
 class SubjectScreen extends StatefulWidget {
   final String subjectName;
@@ -22,11 +24,36 @@ class SubjectScreen extends StatefulWidget {
 class _SubjectScreenState extends State<SubjectScreen> {
   bool showAnswer = false;
   late int index;
+  int cardsSeen = 0;
 
   @override
   void initState() {
     super.initState();
+    StorageService.instance.init();
     index = Random().nextInt(30);
+  }
+
+  void awardXP(int amount, String label) {
+    StorageService.instance.addXP(amount);
+    showXPToast(context, label);
+  }
+
+  void nextCard() {
+    setState(() {
+      showAnswer = false;
+      index = Random().nextInt(30);
+      cardsSeen++;
+
+      awardXP(10, "+10 XP");
+
+      if (cardsSeen % 20 == 0) {
+        awardXP(50, "+50 XP — Milestone");
+      }
+
+      if (cardsSeen == 30) {
+        awardXP(150, "+150 XP — Subject Complete");
+      }
+    });
   }
 
   String get question {
@@ -35,25 +62,21 @@ class _SubjectScreenState extends State<SubjectScreen> {
       if (widget.subjectName == 'English') return Grade9Questions.english[index];
       return Grade9Questions.science[index];
     }
-
     if (widget.grade == 10) {
       if (widget.subjectName == 'Math') return Grade10Questions.math[index];
       if (widget.subjectName == 'English') return Grade10Questions.english[index];
       return Grade10Questions.science[index];
     }
-
     if (widget.grade == 11) {
       if (widget.subjectName == 'Math') return Grade11Questions.math[index];
       if (widget.subjectName == 'English') return Grade11Questions.english[index];
       return Grade11Questions.science[index];
     }
-
     if (widget.grade == 12) {
       if (widget.subjectName == 'Math') return Grade12Questions.math[index];
       if (widget.subjectName == 'English') return Grade12Questions.english[index];
       return Grade12Questions.science[index];
     }
-
     return '';
   }
 
@@ -63,25 +86,21 @@ class _SubjectScreenState extends State<SubjectScreen> {
       if (widget.subjectName == 'English') return Grade9Questions.englishAnswers[index];
       return Grade9Questions.scienceAnswers[index];
     }
-
     if (widget.grade == 10) {
       if (widget.subjectName == 'Math') return Grade10Questions.mathAnswers[index];
       if (widget.subjectName == 'English') return Grade10Questions.englishAnswers[index];
       return Grade10Questions.scienceAnswers[index];
     }
-
     if (widget.grade == 11) {
       if (widget.subjectName == 'Math') return Grade11Questions.mathAnswers[index];
       if (widget.subjectName == 'English') return Grade11Questions.englishAnswers[index];
       return Grade11Questions.scienceAnswers[index];
     }
-
     if (widget.grade == 12) {
       if (widget.subjectName == 'Math') return Grade12Questions.mathAnswers[index];
       if (widget.subjectName == 'English') return Grade12Questions.englishAnswers[index];
       return Grade12Questions.scienceAnswers[index];
     }
-
     return '';
   }
 
@@ -123,6 +142,7 @@ class _SubjectScreenState extends State<SubjectScreen> {
                 onTap: () {
                   setState(() {
                     showAnswer = !showAnswer;
+                    if (showAnswer) awardXP(5, "+5 XP");
                   });
                 },
                 child: AnimatedContainer(
@@ -187,12 +207,7 @@ class _SubjectScreenState extends State<SubjectScreen> {
               ),
               SizedBox(height: 24),
               GestureDetector(
-                onTap: () {
-                  setState(() {
-                    showAnswer = false;
-                    index = Random().nextInt(30);
-                  });
-                },
+                onTap: nextCard,
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: 16),
                   width: MediaQuery.of(context).size.width * 0.6,
