@@ -10,6 +10,7 @@ import 'achievements_screen.dart';
 import 'study_tips_screen.dart';
 import 'recent_activity_screen.dart';
 import 'quick_quiz_screen.dart';
+import '../services/storage_service.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -17,11 +18,37 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int level = 1;
+  int xp = 0;
+  int xpNeeded = 250;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProgress();
+  }
+
+  Future<void> _loadProgress() async {
+    await StorageService.instance.init();
+    setState(() {
+      level = StorageService.instance.level;
+      xp = StorageService.instance.xp;
+      xpNeeded = StorageService.instance.xpForLevel(level);
+    });
+  }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     setState(() {});
+  }
+
+  Future<void> openScreen(Widget screen) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => screen),
+    );
+    _loadProgress();
   }
 
   @override
@@ -117,7 +144,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
 
                 SizedBox(height: 28),
-                ProgressCard(),
+
+                ProgressCard(
+                  level: level,
+                  xp: xp,
+                  xpNeeded: xpNeeded,
+                ),
+
                 SizedBox(height: 32),
 
                 Container(
@@ -141,15 +174,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       SizedBox(height: 20),
                       GradeSelector(
-                        onGradeSelected: (grade) {
+                        onGradeSelected: (grade) async {
                           if (grade == 9) {
-                            Navigator.push(context, MaterialPageRoute(builder: (_) => Grade9Screen()));
+                            await openScreen(Grade9Screen());
                           } else if (grade == 10) {
-                            Navigator.push(context, MaterialPageRoute(builder: (_) => Grade10Screen()));
+                            await openScreen(Grade10Screen());
                           } else if (grade == 11) {
-                            Navigator.push(context, MaterialPageRoute(builder: (_) => Grade11Screen()));
+                            await openScreen(Grade11Screen());
                           } else if (grade == 12) {
-                            Navigator.push(context, MaterialPageRoute(builder: (_) => Grade12Screen()));
+                            await openScreen(Grade12Screen());
                           }
                         },
                       ),
@@ -173,11 +206,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           Expanded(
                             child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (_) => AchievementsScreen()),
-                                );
+                              onTap: () async {
+                                await openScreen(AchievementsScreen());
                               },
                               child: Container(
                                 height: 110,
@@ -216,11 +246,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(width: 16),
                           Expanded(
                             child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (_) => StudyTipsScreen()),
-                                );
+                              onTap: () async {
+                                await openScreen(StudyTipsScreen());
                               },
                               child: Container(
                                 height: 110,
@@ -265,11 +292,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           Expanded(
                             child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (_) => RecentActivityScreen()),
-                                );
+                              onTap: () async {
+                                await openScreen(RecentActivityScreen());
                               },
                               child: Container(
                                 height: 110,
@@ -308,11 +332,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(width: 16),
                           Expanded(
                             child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (_) => QuickQuizScreen()),
-                                );
+                              onTap: () async {
+                                await openScreen(QuickQuizScreen());
                               },
                               child: Container(
                                 height: 110,
